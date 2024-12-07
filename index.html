@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>星座匹配度分析</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo" data-i18n="title">星座配对</div>
+            <ul class="nav-links">
+                <li><a href="#home" data-i18n="home">首页</a></li>
+                <li><a href="#match" data-i18n="match">匹配度分析</a></li>
+                <li><a href="#personality" data-i18n="personality">星座性格</a></li>
+                <li class="nav-controls">
+                    <button class="lang-toggle" id="langToggle">EN</button>
+                    <button class="theme-toggle" id="themeToggle">
+                        <span class="light-icon">🌞</span>
+                        <span class="dark-icon">🌙</span>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="section-home">
+            <h1 data-i18n="explore">探索星座的奥秘</h1>
+            <p data-i18n="subtitle">通过专业的星座分析，了解你和TA的缘分</p>
+            
+            <!-- 12星座网格 - 两行六列布局 -->
+            <div class="zodiac-grid">
+                <!-- 第一行 -->
+                <div class="zodiac-card" data-zodiac="aries">
+                    <img src="images/zodiac/aries.svg" alt="Aries">
+                    <h3 data-i18n="aries">白羊座</h3>
+                    <p>3.21-4.19</p>
+                </div>
+                <div class="zodiac-card" data-zodiac="taurus">
+                    <img src="images/zodiac/taurus.svg" alt="Taurus">
+                    <h3 data-i18n="taurus">金牛座</h3>
+                    <p>4.20-5.20</p>
+                </div>
+                <div class="zodiac-card" data-zodiac="gemini">
+                    <img src="images/zodiac/gemini.svg" alt="Gemini">
+                    <h3 data-i18n="gemini">双子座</h3>
+                    <p>5.21-6.21</p>
+                </div>
+                <div class="zodiac-card" data-zodiac="cancer">
+                    <img src="images/zodiac/cancer.svg" alt="Cancer">
+                    <h3 data-i18n="cancer">巨蟹座</h3>
+                    <p>6.22-7.22</p>
+                </div>
+                <div class="zodiac-card" data-zodiac="leo">
+                    <img src="images/zodiac/leo.svg" alt="Leo">
+                    <h3 data-i18n="leo">狮子座</h3>
+                    <p>7.23-8.22</p>
+                </div>
+                <div class="zodiac-card" data-zodiac="virgo">
+                    <img src="images/zodiac/virgo.svg" alt="Virgo">
+                    <h3 data-i18n="virgo">处女座</h3>
+                    <p>8.23-9.22</p>
+                </div>
+                <!-- 第二行 -->
+                <div class="zodiac-card" data-zodiac="libra">
+                    <img src="images/zodiac/libra.svg" alt="Libra">
+                    <h3 data-i18n="libra">天秤座</h3>
+                    <p>9.23-10.23</p>
+                </div>
+                <div class="zodiac-card" data-zodiac="scorpio">
+                    <img src="images/zodiac/scorpio.svg" alt="Scorpio">
+                    <h3 data-i18n="scorpio">天蝎座</h3>
+                    <p>10.24-11.22</p>
+                </div>
+                <div class="zodiac-card" data-zodiac="sagittarius">
+                    <img src="images/zodiac/sagittarius.svg" alt="Sagittarius">
+                    <h3 data-i18n="sagittarius">射手座</h3>
+                    <p>11.23-12.21</p>
+                </div>
+                <div class="zodiac-card" data-zodiac="capricorn">
+                    <img src="images/zodiac/capricorn.svg" alt="Capricorn">
+                    <h3 data-i18n="capricorn">摩羯座</h3>
+                    <p>12.22-1.19</p>
+                </div>
+                <div class="zodiac-card" data-zodiac="aquarius">
+                    <img src="images/zodiac/aquarius.svg" alt="Aquarius">
+                    <h3 data-i18n="aquarius">水瓶座</h3>
+                    <p>1.20-2.18</p>
+                </div>
+                <div class="zodiac-card" data-zodiac="pisces">
+                    <img src="images/zodiac/pisces.svg" alt="Pisces">
+                    <h3 data-i18n="pisces">双鱼座</h3>
+                    <p>2.19-3.20</p>
+                </div>
+            </div>
+
+            <!-- 匹配度分析部分 -->
+            <div class="matching-section">
+                <h2 data-i18n="matchAnalysis">星座匹配度分析</h2>
+                <p class="matching-tip" data-i18n="matchTip">输入双方生日，开始缘分配对</p>
+                
+                <div class="matching-container">
+                    <div class="birth-selector">
+                        <div class="birth-group">
+                            <label data-i18n="yourBirth">你的生日</label>
+                            <div class="gender-select">
+                                <label>
+                                    <input type="radio" name="yourGender" value="male" checked>
+                                    <span data-i18n="male">男生</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="yourGender" value="female">
+                                    <span data-i18n="female">女生</span>
+                                </label>
+                            </div>
+                            <div class="date-inputs">
+                                <select id="yourYear" onchange="updateZodiac('your')">
+                                    <option value="">年</option>
+                                    <!-- 通过JS动态生成1900-2024年的选项 -->
+                                </select>
+                                <select id="yourMonth" onchange="updateZodiac('your')">
+                                    <option value="">月</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                                <select id="yourDay" onchange="updateZodiac('your')">
+                                    <option value="">日</option>
+                                    <!-- 通过JS动态生成1-31日的选项 -->
+                                </select>
+                            </div>
+                            <div class="zodiac-result" id="yourZodiacResult">
+                                <img src="images/zodiac/placeholder.svg" alt="" id="yourZodiacIcon">
+                            </div>
+                        </div>
+                        
+                        <div class="heart-icon">❤️</div>
+                        
+                        <div class="birth-group">
+                            <label data-i18n="partnerBirth">TA的生日</label>
+                            <div class="gender-select">
+                                <label>
+                                    <input type="radio" name="partnerGender" value="male">
+                                    <span>男生</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="partnerGender" value="female" checked>
+                                    <span>女生</span>
+                                </label>
+                            </div>
+                            <div class="date-inputs">
+                                <select id="partnerYear" onchange="updateZodiac('partner')">
+                                    <option value="">年</option>
+                                    <!-- 通过JS动态生成1900-2024年的选项 -->
+                                </select>
+                                <select id="partnerMonth" onchange="updateZodiac('partner')">
+                                    <option value="">月</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                                <select id="partnerDay" onchange="updateZodiac('partner')">
+                                    <option value="">日</option>
+                                    <!-- 通过JS动态生成1-31日的选项 -->
+                                </select>
+                            </div>
+                            <div class="zodiac-result" id="partnerZodiacResult">
+                                <img src="images/zodiac/placeholder.svg" alt="" id="partnerZodiacIcon">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="analyzeCompatibility()" class="match-button" data-i18n="analyze">查看匹配度</button>
+                    <div id="matchingResult" class="modal" style="display: none;">
+                        <div class="modal-content">
+                            <span class="close-btn">&times;</span>
+                            <div class="result-container">
+                                <h2 data-i18n="matchResult">缘分匹配结果</h2>
+                                <div class="score-circle">
+                                    <span id="matchScore">0</span>
+                                    <span class="percent">%</span>
+                                </div>
+                                <div class="match-details">
+                                    <p id="matchDescription" class="match-description"></p>
+                                    <div class="match-aspects">
+                                        <div class="aspect">
+                                            <h4 data-i18n="loveCompat">爱情相容性</h4>
+                                            <div class="progress-bar">
+                                                <div id="loveScore" class="progress"></div>
+                                            </div>
+                                        </div>
+                                        <div class="aspect">
+                                            <h4 data-i18n="friendCompat">友情相容性</h4>
+                                            <div class="progress-bar">
+                                                <div id="friendshipScore" class="progress"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p data-i18n="copyright">&copy; 2024 星座配对. All rights reserved.</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/zodiac.js"></script>
+    <script src="js/matching.js"></script>
+    <script src="js/i18n.js"></script>
+    <button class="theme-toggle" id="themeToggle">
+        <span class="light-icon">🌞</span>
+        <span class="dark-icon" style="display: none;">🌙</span>
+    </button>
+</body>
+</html> 
